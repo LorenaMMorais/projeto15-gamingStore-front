@@ -1,16 +1,26 @@
+import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
 export default function SignUp() {
+    const navigate = useNavigate();
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        navigate("/")
+    }
+
     return (
         <Container>
             <Title>Crie sua Conta</Title>
-            <StyledForm>
+            <StyledForm onSubmit={handleSubmit}>
                 <StyledInput placeholder="Nome*"></StyledInput>
                 <StyledInput placeholder="E-mail*"></StyledInput>
                 <StyledInput placeholder="Senha*"></StyledInput>
-                <ion-icon name="eye-off"></ion-icon>
                 <StyledButton>Cadastrar</StyledButton>
-                <StyledLink>Já tem uma conta? <span>Faça login</span></StyledLink>
+                <StyledLink to="/sign-in">
+                    Já tem uma conta? <span>Faça login</span>
+                </StyledLink>
+                <ion-icon name="eye-off"></ion-icon>
             </StyledForm>
         </Container>
     )
@@ -81,7 +91,7 @@ const StyledButton = styled.button`
     font-size: 20px;
     line-height: 24px;
 `
-const StyledLink = styled.a`
+const StyledLink = styled(Link)`
     color: #fff;
     font-size: 15px;
     font-weight: lighter;
