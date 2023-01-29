@@ -1,7 +1,12 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import Header from "./Header";
+import SideBar from "./SideBar";
 
 export default function SignUp() {
+    const [hidden, setHidden] = useState(true)
+
     const navigate = useNavigate();
 
     function handleSubmit(e) {
@@ -11,16 +16,23 @@ export default function SignUp() {
 
     return (
         <Container>
+            <Header hidden={hidden} setHidden={setHidden} />
+            <SideBar hidden={hidden} setHidden={setHidden} />
+
             <Title>Crie sua Conta</Title>
+
             <StyledForm onSubmit={handleSubmit}>
                 <StyledInput placeholder="Nome*"></StyledInput>
                 <StyledInput placeholder="E-mail*"></StyledInput>
                 <StyledInput placeholder="Senha*"></StyledInput>
+
+                <ion-icon name="eye-off"></ion-icon>
+
                 <StyledButton>Cadastrar</StyledButton>
+                
                 <StyledLink to="/sign-in">
                     Já tem uma conta? <span>Faça login</span>
                 </StyledLink>
-                <ion-icon name="eye-off"></ion-icon>
             </StyledForm>
         </Container>
     )
@@ -30,7 +42,7 @@ const Container = styled.div`
     background-color: #171A21;
     width: 100vw;
     height: 100vh;
-    padding: 90px 20px 100px 20px;
+    /* padding: 90px 20px 100px 20px; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,7 +53,7 @@ const Container = styled.div`
 `
 const Title = styled.h1`
     color: #fff;
-    font-size: 32px;
+    font-size: 34px;
     text-transform: uppercase;
     letter-spacing: .055em;
     font-weight: 200;
