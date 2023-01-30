@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom"
 import Header from "./Header";
 import SideBar from "./SideBar";
 
-import logo from "../assets/logo.png"
+import logo from "../assets/logo.png";
 import axios from "axios";
 
 export default function Home() {
     const [hidden, setHidden] = useState(true);
-    const [products, setProducts] = useState();
+    const [products, setProducts] = useState([]);
 
     const navigate = useNavigate();
 
@@ -34,7 +34,7 @@ export default function Home() {
             <SideBar hidden={hidden} setHidden={setHidden} />
             <ContainerFeaturedGames>
                 <Title>Destaques</Title>
-                    <Games>
+                <Games>
                         {products.map((product) => (
                             <GameCard>
                                 <DataGame>
@@ -42,9 +42,8 @@ export default function Home() {
                                     <TitleGame>{product.newProduct.name}</TitleGame>
                                     <ValueGame>R$ {product.newProduct.value}</ValueGame>
                                 </DataGame>
-                                <CartBox><ion-icon name="cart" ></ion-icon></CartBox>
+                                <CartBox><ion-icon name="cart"></ion-icon></CartBox>
                             </GameCard>
-
                         ))}
                     </Games>
             </ContainerFeaturedGames>
