@@ -30,5 +30,6 @@ const Container = styled.div`
     ion-icon {
         font-size: 42px;
         color: #5A5D63;
+        cursor: pointer;
     }
 `

@@ -13,6 +13,7 @@ export default function SignIn() {
     const [isLoading, setIsLoading] = useState(false)
     const { setToken } = useContext(AuthContext)
     const [hidden, setHidden] = useState(true)
+    const [showPassword, setShowPassword] = useState(false)
 
     const navigate = useNavigate();
 
@@ -34,11 +35,12 @@ export default function SignIn() {
                 navigate("/")
             })
             .catch(err => {
-                console.log(form)
                 console.log(err.response.data)
+                console.log(form)
 
                 setIsLoading(false)
                 const errorMessage = err.response.data.message
+                if (!errorMessage) return alert("error 404")
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -68,9 +70,9 @@ export default function SignIn() {
                         })}
                 />
                 <StyledInput
-                    placeholder="Senha"
+                    placeholder="Senha*"
                     name="password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     value={form.password}
                     disabled={isLoading}
                     onChange={e =>
@@ -79,6 +81,11 @@ export default function SignIn() {
                             value: e.target.value
                         })}
                 />
+                <ion-icon
+                    name={"eye" + (showPassword ? "-off" : "")}
+                    onClick={() => setShowPassword(!showPassword)}>
+                </ion-icon>
+
                 <StyledButton type="submit" disabled={isLoading}>
                     {isLoading ? (
                         <ThreeDots width={50} height={50} color="#fff" />
@@ -112,6 +119,7 @@ const Title = styled.h1`
     text-transform: uppercase;
     letter-spacing: .055em;
     font-weight: 200;
+    cursor: default;
 `
 const StyledForm = styled.form`
     /* width: 100%; */
@@ -127,6 +135,7 @@ const StyledForm = styled.form`
         bottom: 131.5px;
         color: #171A21;
         font-size: 28px;
+        cursor: pointer;
     }
 `
 const StyledInput = styled.input`
@@ -161,6 +170,7 @@ const StyledButton = styled.button`
     font-weight: 400;
     font-size: 20px;
     line-height: 24px;
+    cursor: pointer;
 `
 const StyledLink = styled(Link)`
     color: #fff;
