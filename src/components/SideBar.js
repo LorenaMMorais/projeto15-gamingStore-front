@@ -5,11 +5,11 @@ export default function SideBar({ hidden, setHidden }) {
     return (
         <>
             <DarkerBackground
-                visibility={hidden}
+                visibility={`${hidden}`}
                 onClick={() => hidden ? "" : setHidden(!hidden)}
             ></DarkerBackground>
 
-            <Menu visibility={hidden}>
+            <Menu visibility={`${hidden}`}>
                 <MenuContent>
                     <StyledLink to="/sign-in">Login</StyledLink>
                     <StyledLink to="/">Home</StyledLink>
