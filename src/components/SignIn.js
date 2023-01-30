@@ -6,9 +6,11 @@ import SideBar from "./SideBar";
 import apiAuth from "../services/apiAuth.js"
 import Swal from "sweetalert2";
 import { AuthContext } from "../contexts/authContext";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function SignIn() {
     const [form, setForm] = useState({ email: "", password: "" })
+    const [isLoading, setIsLoading] = useState(false)
     const { setToken } = useContext(AuthContext)
     const [hidden, setHidden] = useState(true)
 
@@ -20,19 +22,23 @@ export default function SignIn() {
 
     function handleSubmit(e) {
         e.preventDefault()
+        setIsLoading(true)
         apiAuth.signin(form)
             .then(res => {
                 console.log(res.data)
                 console.log(form)
 
                 const { token } = res.data
+                setIsLoading(false)
                 setToken(token)
-                // navigate("/")
+                navigate("/")
             })
             .catch(err => {
                 console.log(form)
                 console.log(err.response.data)
-                const errorMessage = err.response.data
+
+                setIsLoading(false)
+                const errorMessage = err.response.data.message
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -54,6 +60,7 @@ export default function SignIn() {
                     name="email"
                     type="email"
                     value={form.email}
+                    disabled={isLoading}
                     onChange={e =>
                         handleForm({
                             name: e.target.name,
@@ -65,13 +72,18 @@ export default function SignIn() {
                     name="password"
                     type="password"
                     value={form.password}
+                    disabled={isLoading}
                     onChange={e =>
                         handleForm({
                             name: e.target.name,
                             value: e.target.value
                         })}
                 />
-                <StyledButton type="submit">Entrar</StyledButton>
+                <StyledButton type="submit" disabled={isLoading}>
+                    {isLoading ? (
+                        <ThreeDots width={50} height={50} color="#fff" />
+                    ) : "Entrar"}
+                </StyledButton>
 
                 <StyledLink to="/sign-up">
                     Novo por aqui? <span>Cadastre-se!</span>
@@ -136,6 +148,10 @@ const StyledButton = styled.button`
     width: 270px;
     height: 45px;
     margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     border: none;
     border-radius: 2px;
     border: 1px solid #585B62;

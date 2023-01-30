@@ -6,10 +6,10 @@ export default function Header({ children, hidden, setHidden }) {
     return (
         <Container>
             <Link to="/">
-                <img src={logo} alt="Logo" />
+                <img src={logo} alt="Logo" onClick={() => alert("oi!")} />
             </Link>
             {children}
-            <ion-icon name="menu" onClick={ () => hidden? setHidden(!hidden) : "" }></ion-icon>
+            <ion-icon name="menu" onClick={() => hidden ? setHidden(!hidden) : ""} ></ion-icon>
         </Container>
     )
 }
