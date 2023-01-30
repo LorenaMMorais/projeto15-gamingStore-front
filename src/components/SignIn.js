@@ -40,7 +40,7 @@ export default function SignIn() {
 
                 setIsLoading(false)
                 const errorMessage = err.response.data.message
-                if (!errorMessage) return alert("error 404")
+                if (!errorMessage) return alert("error 404 not found")
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
